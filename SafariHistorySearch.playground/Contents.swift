@@ -30,29 +30,6 @@ struct HistoryItem {
     func alfredResult() -> AlfredResult? {
         return url != nil ? AlfredResult(fromHistoryItem: self) : nil
     }
-    
-    func contains(queries: [String]) -> Bool {
-        for query in queries {
-            if !contains(query) {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func contains(query: String) -> Bool {
-        return matches(query, inString: self.name) ||
-            matches(query, inString: self.url?.path) ||
-            matches(query, inString: self.fullText)
-    }
-    
-    func matches(query: String, inString string: String?) -> Bool {
-        guard let stringToSearch = string else {
-            return false
-        }
-        
-        return stringToSearch.containsString(query)
-    }
 }
 
 struct AlfredResult {
