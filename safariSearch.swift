@@ -2,7 +2,6 @@
 import Foundation
 
 let HISTORY_PATH = "/Caches/Metadata/Safari/History"
-let SAFARI_ICON_PATH = "compass.png"
 let MAX_RESULTS = 10
 
 struct HistoryItem {
@@ -31,15 +30,40 @@ struct HistoryItem {
     func alfredResult() -> AlfredResult? {
         return url != nil ? AlfredResult(fromHistoryItem: self) : nil
     }
+    
+    func contains(queries: [String]) -> Bool {
+        for query in queries {
+            if !contains(query) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func contains(query: String) -> Bool {
+        return matches(query, inString: self.name) ||
+            matches(query, inString: self.url?.path) ||
+            matches(query, inString: self.fullText)
+    }
+    
+    func matches(query: String, inString string: String?) -> Bool {
+        guard let stringToSearch = string else {
+            return false
+        }
+        
+        return stringToSearch.containsString(query)
+    }
 }
 
 struct AlfredResult {
-    var uid: String  = ""
-    var arg: String  = ""
-    var title: String  = ""
-    var sub: String  = ""
-    var icon: String  = ""
-    var type: String = "file"
+    static let SafariIconPath = "compass.png"
+    
+    let uid: String
+    let arg: String
+    let title: String
+    let sub: String
+    let icon: String
+    let type: String = "file"
     
     init(fromHistoryItem historyItem: HistoryItem) {
         let url = historyItem.url!.absoluteString
@@ -47,8 +71,7 @@ struct AlfredResult {
         sub = url
         uid = url
         arg = historyItem.plistURL.path!
-        icon = SAFARI_ICON_PATH
-        
+        icon = AlfredResult.SafariIconPath
     }
     
     func toXML() -> NSXMLElement {
@@ -60,7 +83,6 @@ struct AlfredResult {
         resultXML.addChild(NSXMLNode.elementWithName("icon", stringValue: icon) as! NSXMLNode)
         return resultXML
     }
-    
 }
 
 let fileManager = NSFileManager()
@@ -68,25 +90,27 @@ let libraryURL = try! fileManager.URLForDirectory(.LibraryDirectory, inDomain: .
 let fullPath = libraryURL.path!.stringByAppendingString(HISTORY_PATH)
 let fullURL = NSURL.fileURLWithPath(fullPath)
 let keys = [NSURLIsDirectoryKey, NSURLIsPackageKey, NSURLLocalizedNameKey]
-let historyEnumerator = fileManager.enumeratorAtURL(fullURL, includingPropertiesForKeys: keys, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles) { (url, error) -> Bool in
-    print("\(url), \(error)")
-    return false
-}
-
-let all = historyEnumerator!.allObjects
-let clipped = all.prefixUpTo(10)
+let historyEnumerator = fileManager.enumeratorAtURL(fullURL, includingPropertiesForKeys: keys, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler: nil)
 
 var results = [AlfredResult]()
 let root = NSXMLElement(name: "items")
-for url in clipped {
+
+let args = Process.arguments.dropFirst()
+
+for url in historyEnumerator! {
     let item = HistoryItem(fromPlistAtURL: url as! NSURL)
-    guard let alfredResult = item.alfredResult() else {
+    guard let alfredResult = item.alfredResult() where item.contains(Array(args)) else {
         continue
     }
     
     results.append(alfredResult)
+    
     let resultXML = alfredResult.toXML()
     root.addChild(resultXML)
+    
+    if results.count >= MAX_RESULTS {
+        break
+    }
 }
 
 var xml = NSXMLDocument(rootElement: root)
