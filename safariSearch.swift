@@ -4,19 +4,20 @@ import Foundation
 let HISTORY_PATH = "/Caches/Metadata/Safari/History"
 let SAFARI_ICON_PATH = "compass.png"
 let MAX_RESULTS = 10
-let EscapeMap = ["&": "&amp",
-                 "\"": "&quot",
-                 "'": "&apos",
-                 "<": "&lt",
-                 ">": "&gt"]
 
 struct HistoryItem {
     let url: NSURL?
     let name: String?
     let fullText: String?
+    let plistURL: NSURL
     
-    init(fromPlist plist: AnyObject) {
-        
+    init(fromPlistAtURL plistUrl: NSURL) {
+        func plistAt(url: NSURL) -> AnyObject {
+            let data = NSData.init(contentsOfURL: url)
+            return try! NSPropertyListSerialization.propertyListWithData(data!, options: .Immutable, format: nil)
+        }
+        plistURL = plistUrl
+        let plist = plistAt(plistUrl)
         if let urlString = plist.objectForKey("URL") as? String {
             url = NSURL(string: urlString)
         }
@@ -38,14 +39,16 @@ struct AlfredResult {
     var title: String  = ""
     var sub: String  = ""
     var icon: String  = ""
+    var type: String = "file"
     
     init(fromHistoryItem historyItem: HistoryItem) {
         let url = historyItem.url!.absoluteString
         title = historyItem.name ?? "<TITLE_MISSING>"
         sub = url
         uid = url
-        arg = url
+        arg = historyItem.plistURL.path!
         icon = SAFARI_ICON_PATH
+        
     }
     
     func toXML() -> NSXMLElement {
@@ -58,14 +61,6 @@ struct AlfredResult {
         return resultXML
     }
     
-}
-
-func escapedString(unescaped: String) -> String {
-    var escaped = unescaped
-    for (key, value) in EscapeMap {
-        escaped = escaped.stringByReplacingOccurrencesOfString(key, withString: value)
-    }
-    return escaped
 }
 
 let fileManager = NSFileManager()
@@ -84,10 +79,7 @@ let clipped = all.prefixUpTo(10)
 var results = [AlfredResult]()
 let root = NSXMLElement(name: "items")
 for url in clipped {
-    let data = NSData.init(contentsOfURL: url as! NSURL)
-    let plist = try! NSPropertyListSerialization.propertyListWithData(data!, options: .Immutable, format: nil)
-    let item = HistoryItem(fromPlist: plist)
-    
+    let item = HistoryItem(fromPlistAtURL: url as! NSURL)
     guard let alfredResult = item.alfredResult() else {
         continue
     }
