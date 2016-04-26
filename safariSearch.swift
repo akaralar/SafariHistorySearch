@@ -154,17 +154,17 @@ func showItemsAtPaths(paths: [String]) {
 let fileManager = NSFileManager()
 let libraryURL = try! fileManager.URLForDirectory(.LibraryDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
 let fullPath = libraryURL.path!.stringByAppendingString(HISTORY_PATH)
-//let fullURL = NSURL.fileURLWithPath(fullPath)
-//let keys = [NSURLIsDirectoryKey, NSURLIsPackageKey, NSURLLocalizedNameKey]
-//let historyEnumerator = fileManager.enumeratorAtURL(fullURL, includingPropertiesForKeys: keys, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler: nil)
-
-
-let args = Process.arguments.dropFirst()
-
-//let args = [String]()
-//let args = ["hasan78"]
 var mdfindArgs = ["mdfind", "-onlyin", fullPath]
-mdfindArgs.appendContentsOf(args)
-//
-shell(mdfindArgs)
+let concattedArgs = Process.arguments.dropFirst()
+if let args = concattedArgs.first {
+    let splittedArgs = args.componentsSeparatedByString(" ")
+    print(splittedArgs)
+    mdfindArgs.appendContentsOf(splittedArgs)
+    shell(mdfindArgs)
+}
+//let args = concattedArgs.first().componentsSeparatedByString(" ")
+//print(args)
+//mdfindArgs.appendContentsOf(args)
+//shell(mdfindArgs)
+
 
