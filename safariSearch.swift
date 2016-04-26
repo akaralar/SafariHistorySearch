@@ -2,7 +2,7 @@
 import Foundation
 
 let HISTORY_PATH = "/Caches/Metadata/Safari/History"
-let MAX_RESULTS = 10
+let MAX_RESULTS = 20
 
 struct HistoryItem {
     let url: NSURL?
@@ -63,6 +63,7 @@ struct AlfredResult {
     let title: String
     let sub: String
     let icon: String
+    let text: String
     let type: String = "file"
     
     init(fromHistoryItem historyItem: HistoryItem) {
@@ -70,8 +71,10 @@ struct AlfredResult {
         title = historyItem.name ?? "<TITLE_MISSING>"
         sub = url
         uid = url
+        text = url
         arg = historyItem.plistURL.path!
         icon = AlfredResult.SafariIconPath
+        
     }
     
     func toXML() -> NSXMLElement {
@@ -79,10 +82,15 @@ struct AlfredResult {
         resultXML.addAttribute(NSXMLNode.attributeWithName("uidid", stringValue: uid) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("arg", stringValue: arg) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("title", stringValue: title) as! NSXMLNode)
-        resultXML.addChild(NSXMLNode.elementWithName("sub", stringValue: sub) as! NSXMLNode)
+        resultXML.addChild(NSXMLNode.elementWithName("subtitle", stringValue: sub) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("icon", stringValue: icon) as! NSXMLNode)
-        return resultXML
-    }
+        let copyTextNode = NSXMLElement.elementWithName("text", stringValue: text)
+        copyTextNode.addAttribute(NSXMLNode.attributeWithName("type", stringValue: "copy") as! NSXMLNode)
+        resultXML.addChild(copyTextNode as! NSXMLNode)
+        let largeTypeNode = NSXMLElement.elementWithName("text", stringValue: text)
+        largeTypeNode.addAttribute(NSXMLNode.attributeWithName("type", stringValue: "largetype") as! NSXMLNode)
+        resultXML.addChild(largeTypeNode as! NSXMLNode)
+        return resultXML    }
 }
 
 var outputPipe = NSPipe()
@@ -107,11 +115,8 @@ func captureStandardOutput(task: NSTask) {
                     let paths = totalString.componentsSeparatedByString("\n").filter({ component -> Bool in
                         return component != ""
                     })
-                    //                    print("total string: \(paths)")
                     showItemsAtPaths(paths)
             })
-            
-            //6.
             outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
     }
 }
@@ -158,13 +163,6 @@ var mdfindArgs = ["mdfind", "-onlyin", fullPath]
 let concattedArgs = Process.arguments.dropFirst()
 if let args = concattedArgs.first {
     let splittedArgs = args.componentsSeparatedByString(" ")
-    print(splittedArgs)
     mdfindArgs.appendContentsOf(splittedArgs)
     shell(mdfindArgs)
 }
-//let args = concattedArgs.first().componentsSeparatedByString(" ")
-//print(args)
-//mdfindArgs.appendContentsOf(args)
-//shell(mdfindArgs)
-
-

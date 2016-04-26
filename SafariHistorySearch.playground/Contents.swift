@@ -63,6 +63,7 @@ struct AlfredResult {
     let title: String
     let sub: String
     let icon: String
+    let text: String
     let type: String = "file"
     
     init(fromHistoryItem historyItem: HistoryItem) {
@@ -70,8 +71,10 @@ struct AlfredResult {
         title = historyItem.name ?? "<TITLE_MISSING>"
         sub = url
         uid = url
+        text = url
         arg = historyItem.plistURL.path!
         icon = AlfredResult.SafariIconPath
+        
     }
     
     func toXML() -> NSXMLElement {
@@ -79,8 +82,14 @@ struct AlfredResult {
         resultXML.addAttribute(NSXMLNode.attributeWithName("uidid", stringValue: uid) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("arg", stringValue: arg) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("title", stringValue: title) as! NSXMLNode)
-        resultXML.addChild(NSXMLNode.elementWithName("sub", stringValue: sub) as! NSXMLNode)
+        resultXML.addChild(NSXMLNode.elementWithName("subtitle", stringValue: sub) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("icon", stringValue: icon) as! NSXMLNode)
+        let copyTextNode = NSXMLElement.elementWithName("text", stringValue: text)
+        copyTextNode.addAttribute(NSXMLNode.attributeWithName("type", stringValue: "copy") as! NSXMLNode)
+        resultXML.addChild(copyTextNode as! NSXMLNode)
+        let largeTypeNode = NSXMLElement.elementWithName("text", stringValue: text)
+        largeTypeNode.addAttribute(NSXMLNode.attributeWithName("type", stringValue: "largetype") as! NSXMLNode)
+        resultXML.addChild(largeTypeNode as! NSXMLNode)
         return resultXML
     }
 }
@@ -111,7 +120,7 @@ func captureStandardOutput(task: NSTask) {
                     showItemsAtPaths(paths)
             })
             
-            //6.
+            
             outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
     }
 }
