@@ -85,33 +85,86 @@ struct AlfredResult {
     }
 }
 
-let fileManager = NSFileManager()
-let libraryURL = try! fileManager.URLForDirectory(.LibraryDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
-let fullPath = libraryURL.path!.stringByAppendingString(HISTORY_PATH)
-let fullURL = NSURL.fileURLWithPath(fullPath)
-let keys = [NSURLIsDirectoryKey, NSURLIsPackageKey, NSURLLocalizedNameKey]
-let historyEnumerator = fileManager.enumeratorAtURL(fullURL, includingPropertiesForKeys: keys, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler: nil)
-
-var results = [AlfredResult]()
-let root = NSXMLElement(name: "items")
-
-let args = Process.arguments.dropFirst()
-
-for url in historyEnumerator! {
-    let item = HistoryItem(fromPlistAtURL: url as! NSURL)
-    guard let alfredResult = item.alfredResult() where item.contains(Array(args)) else {
-        continue
-    }
+var outputPipe = NSPipe()
+var totalString = ""
+func captureStandardOutput(task: NSTask) {
+    task.standardOutput = outputPipe
+    outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
     
-    results.append(alfredResult)
-    
-    let resultXML = alfredResult.toXML()
-    root.addChild(resultXML)
-    
-    if results.count >= MAX_RESULTS {
-        break
+    NSNotificationCenter.defaultCenter().addObserverForName(
+        NSFileHandleDataAvailableNotification,
+        object: outputPipe.fileHandleForReading ,
+        queue: nil) { notification in
+            let output = outputPipe.fileHandleForReading.availableData
+            let outputString = String(data: output, encoding: NSUTF8StringEncoding) ?? ""
+            
+            dispatch_async(
+                dispatch_get_main_queue(), {
+                    let previousOutput = totalString ?? ""
+                    let nextOutput = previousOutput + "\n" + outputString
+                    totalString = nextOutput
+                    
+                    let paths = totalString.componentsSeparatedByString("\n").filter({ component -> Bool in
+                        return component != ""
+                    })
+                    //                    print("total string: \(paths)")
+                    showItemsAtPaths(paths)
+            })
+            
+            //6.
+            outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
     }
 }
 
-var xml = NSXMLDocument(rootElement: root)
-print(xml.XMLStringWithOptions(NSXMLNodePrettyPrint))
+func shell(args: [String]) -> Int32 {
+    let task = NSTask()
+    task.launchPath = "/usr/bin/env"
+    task.arguments = args
+    captureStandardOutput(task)
+    task.launch()
+    task.waitUntilExit()
+    return task.terminationStatus
+}
+
+func showItemsAtPaths(paths: [String]) {
+    var results = [AlfredResult]()
+    let root = NSXMLElement(name: "items")
+
+    for path in paths {
+        let item = HistoryItem(fromPlistAtURL: NSURL.fileURLWithPath(path))
+        
+        guard let alfredResult = item.alfredResult() else {
+            continue
+        }
+        
+        results.append(alfredResult)
+        
+        let resultXML = alfredResult.toXML()
+        root.addChild(resultXML)
+        
+        if results.count >= MAX_RESULTS {
+            break
+        }
+    }
+    
+    let xml = NSXMLDocument(rootElement: root)
+    print(xml.XMLStringWithOptions(NSXMLNodePrettyPrint))
+}
+
+let fileManager = NSFileManager()
+let libraryURL = try! fileManager.URLForDirectory(.LibraryDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
+let fullPath = libraryURL.path!.stringByAppendingString(HISTORY_PATH)
+//let fullURL = NSURL.fileURLWithPath(fullPath)
+//let keys = [NSURLIsDirectoryKey, NSURLIsPackageKey, NSURLLocalizedNameKey]
+//let historyEnumerator = fileManager.enumeratorAtURL(fullURL, includingPropertiesForKeys: keys, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler: nil)
+
+
+//let args = Process.arguments.dropFirst()
+
+//let args = [String]()
+let args = ["hasan78"]
+var mdfindArgs = ["mdfind", "-onlyin", fullPath]
+mdfindArgs.appendContentsOf(args)
+//
+shell(mdfindArgs)
+
