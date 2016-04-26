@@ -2,7 +2,7 @@
 import Foundation
 
 let HISTORY_PATH = "/Caches/Metadata/Safari/History"
-let MAX_RESULTS = 10
+let MAX_RESULTS = 20
 
 struct HistoryItem {
     let url: NSURL?
@@ -90,8 +90,7 @@ struct AlfredResult {
         let largeTypeNode = NSXMLElement.elementWithName("text", stringValue: text)
         largeTypeNode.addAttribute(NSXMLNode.attributeWithName("type", stringValue: "largetype") as! NSXMLNode)
         resultXML.addChild(largeTypeNode as! NSXMLNode)
-        return resultXML
-    }
+        return resultXML    }
 }
 
 var outputPipe = NSPipe()
@@ -116,11 +115,8 @@ func captureStandardOutput(task: NSTask) {
                     let paths = totalString.componentsSeparatedByString("\n").filter({ component -> Bool in
                         return component != ""
                     })
-                    //                    print("total string: \(paths)")
                     showItemsAtPaths(paths)
             })
-            
-            
             outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
     }
 }
@@ -138,7 +134,7 @@ func shell(args: [String]) -> Int32 {
 func showItemsAtPaths(paths: [String]) {
     var results = [AlfredResult]()
     let root = NSXMLElement(name: "items")
-
+    
     for path in paths {
         let item = HistoryItem(fromPlistAtURL: NSURL.fileURLWithPath(path))
         
@@ -163,17 +159,10 @@ func showItemsAtPaths(paths: [String]) {
 let fileManager = NSFileManager()
 let libraryURL = try! fileManager.URLForDirectory(.LibraryDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
 let fullPath = libraryURL.path!.stringByAppendingString(HISTORY_PATH)
-//let fullURL = NSURL.fileURLWithPath(fullPath)
-//let keys = [NSURLIsDirectoryKey, NSURLIsPackageKey, NSURLLocalizedNameKey]
-//let historyEnumerator = fileManager.enumeratorAtURL(fullURL, includingPropertiesForKeys: keys, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler: nil)
-
-
-//let args = Process.arguments.dropFirst()
-
-//let args = [String]()
-let args = ["hasan78"]
 var mdfindArgs = ["mdfind", "-onlyin", fullPath]
-mdfindArgs.appendContentsOf(args)
-//
-shell(mdfindArgs)
-
+let concattedArgs = Process.arguments.dropFirst()
+if let args = concattedArgs.first {
+    let splittedArgs = args.componentsSeparatedByString(" ")
+    mdfindArgs.appendContentsOf(splittedArgs)
+    shell(mdfindArgs)
+}
