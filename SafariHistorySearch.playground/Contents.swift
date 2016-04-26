@@ -160,7 +160,8 @@ let fileManager = NSFileManager()
 let libraryURL = try! fileManager.URLForDirectory(.LibraryDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
 let fullPath = libraryURL.path!.stringByAppendingString(HISTORY_PATH)
 var mdfindArgs = ["mdfind", "-onlyin", fullPath]
-let concattedArgs = Process.arguments.dropFirst()
+//let concattedArgs = Process.arguments.dropFirst()
+let concattedArgs = ["google"]
 if let args = concattedArgs.first {
     let splittedArgs = args.componentsSeparatedByString(" ")
     mdfindArgs.appendContentsOf(splittedArgs)
