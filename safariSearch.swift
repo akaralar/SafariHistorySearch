@@ -1,5 +1,3 @@
-#!/usr/bin/env xcrun swift
-
 import Foundation
 
 let HISTORY_PATH = "/Caches/Metadata/Safari/History"
@@ -58,7 +56,7 @@ struct AlfredResult {
     
     func toXML() -> NSXMLElement {
         let resultXML = NSXMLElement(name: "item")
-        resultXML.addAttribute(NSXMLNode.attributeWithName("uidid", stringValue: uid) as! NSXMLNode)
+        resultXML.addAttribute(NSXMLNode.attributeWithName("uid", stringValue: uid) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("arg", stringValue: arg) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("title", stringValue: title) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("subtitle", stringValue: sub) as! NSXMLNode)

@@ -1,4 +1,3 @@
-
 import Foundation
 
 let HISTORY_PATH = "/Caches/Metadata/Safari/History"
@@ -11,10 +10,12 @@ struct HistoryItem {
     let plistURL: NSURL
     
     init(fromPlistAtURL plistUrl: NSURL) {
+        
         func plistAt(url: NSURL) -> AnyObject {
             let data = NSData.init(contentsOfURL: url)
             return try! NSPropertyListSerialization.propertyListWithData(data!, options: .Immutable, format: nil)
         }
+        
         plistURL = plistUrl
         let plist = plistAt(plistUrl)
         if let urlString = plist.objectForKey("URL") as? String {
@@ -51,12 +52,11 @@ struct AlfredResult {
         text = url
         arg = historyItem.plistURL.path!
         icon = AlfredResult.SafariIconPath
-        
     }
     
     func toXML() -> NSXMLElement {
         let resultXML = NSXMLElement(name: "item")
-        resultXML.addAttribute(NSXMLNode.attributeWithName("uidid", stringValue: uid) as! NSXMLNode)
+        resultXML.addAttribute(NSXMLNode.attributeWithName("uid", stringValue: uid) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("arg", stringValue: arg) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("title", stringValue: title) as! NSXMLNode)
         resultXML.addChild(NSXMLNode.elementWithName("subtitle", stringValue: sub) as! NSXMLNode)
@@ -67,7 +67,8 @@ struct AlfredResult {
         let largeTypeNode = NSXMLElement.elementWithName("text", stringValue: text)
         largeTypeNode.addAttribute(NSXMLNode.attributeWithName("type", stringValue: "largetype") as! NSXMLNode)
         resultXML.addChild(largeTypeNode as! NSXMLNode)
-        return resultXML    }
+        return resultXML
+    }
 }
 
 var outputPipe = NSPipe()
@@ -88,10 +89,10 @@ func captureStandardOutput(task: NSTask) {
                     let previousOutput = totalString ?? ""
                     let nextOutput = previousOutput + "\n" + outputString
                     totalString = nextOutput
-                    
-                    let paths = totalString.componentsSeparatedByString("\n").filter({ component -> Bool in
+                    let paths = totalString.componentsSeparatedByString("\n").filter {
+                        component in
                         return component != ""
-                    })
+                    }
                     showItemsAtPaths(paths)
             })
             outputPipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
@@ -111,19 +112,15 @@ func shell(args: [String]) -> Int32 {
 func showItemsAtPaths(paths: [String]) {
     var results = [AlfredResult]()
     let root = NSXMLElement(name: "items")
-    
     for path in paths {
         let item = HistoryItem(fromPlistAtURL: NSURL.fileURLWithPath(path))
-        
         guard let alfredResult = item.alfredResult() else {
             continue
         }
-        
-        results.append(alfredResult)
-        
         let resultXML = alfredResult.toXML()
         root.addChild(resultXML)
         
+        results.append(alfredResult)
         if results.count >= MAX_RESULTS {
             break
         }
@@ -137,8 +134,7 @@ let fileManager = NSFileManager()
 let libraryURL = try! fileManager.URLForDirectory(.LibraryDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
 let fullPath = libraryURL.path!.stringByAppendingString(HISTORY_PATH)
 var mdfindArgs = ["mdfind", "-onlyin", fullPath]
-//let concattedArgs = Process.arguments.dropFirst()
-let concattedArgs = ["google"]
+let concattedArgs = Process.arguments.dropFirst()
 if let args = concattedArgs.first {
     let splittedArgs = args.componentsSeparatedByString(" ")
     mdfindArgs.appendContentsOf(splittedArgs)
