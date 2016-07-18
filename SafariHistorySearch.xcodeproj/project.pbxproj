@@ -1,0 +1,446 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		579F17781D3D692900FA0F9F /* SafariHistorySearch in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57E3D2FC1D3B95E0009E895D /* SafariHistorySearch */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		579F17841D3D772600FA0F9F /* SafariHistorySearchFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 579F17801D3D71A900FA0F9F /* SafariHistorySearchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57E3D3001D3B95E0009E895D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E3D2FF1D3B95E0009E895D /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		579F17751D3D690700FA0F9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57E3D2F41D3B95E0009E895D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57E3D2FB1D3B95E0009E895D;
+			remoteInfo = SafariHistorySearch;
+		};
+		579F177F1D3D71A900FA0F9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 579F177A1D3D71A900FA0F9F /* SafariHistorySearchFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 57E3D3581D3BA52A009E895D;
+			remoteInfo = SafariHistorySearchFramework;
+		};
+		579F17811D3D71A900FA0F9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 579F177A1D3D71A900FA0F9F /* SafariHistorySearchFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 57E3D3621D3BA52A009E895D;
+			remoteInfo = SafariHistorySearchFrameworkTests;
+		};
+		579F17851D3D77A700FA0F9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 579F177A1D3D71A900FA0F9F /* SafariHistorySearchFramework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 57E3D3571D3BA52A009E895D;
+			remoteInfo = SafariHistorySearchFramework;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		579F17771D3D691700FA0F9F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				579F17781D3D692900FA0F9F /* SafariHistorySearch in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		579F17791D3D694800FA0F9F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				579F17841D3D772600FA0F9F /* SafariHistorySearchFramework.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57E3D2FA1D3B95E0009E895D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		579F176F1D3D668900FA0F9F /* SafariHistorySearch.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafariHistorySearch.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		579F17711D3D668900FA0F9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		579F177A1D3D71A900FA0F9F /* SafariHistorySearchFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SafariHistorySearchFramework.xcodeproj; path = ../SafariHistorySearchFramework.xcodeproj; sourceTree = "<group>"; };
+		57E3D2FC1D3B95E0009E895D /* SafariHistorySearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SafariHistorySearch; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E3D2FF1D3B95E0009E895D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		579F176C1D3D668900FA0F9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57E3D2F91D3B95E0009E895D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		579F17701D3D668900FA0F9F /* SafariHistorySearchBundle */ = {
+			isa = PBXGroup;
+			children = (
+				579F17711D3D668900FA0F9F /* Info.plist */,
+			);
+			path = SafariHistorySearchBundle;
+			sourceTree = "<group>";
+		};
+		579F177B1D3D71A900FA0F9F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				579F17801D3D71A900FA0F9F /* SafariHistorySearchFramework.framework */,
+				579F17821D3D71A900FA0F9F /* SafariHistorySearchFrameworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		57E3D2F31D3B95E0009E895D = {
+			isa = PBXGroup;
+			children = (
+				57E3D2FE1D3B95E0009E895D /* SafariHistorySearch */,
+				579F17701D3D668900FA0F9F /* SafariHistorySearchBundle */,
+				57E3D2FD1D3B95E0009E895D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		57E3D2FD1D3B95E0009E895D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57E3D2FC1D3B95E0009E895D /* SafariHistorySearch */,
+				579F176F1D3D668900FA0F9F /* SafariHistorySearch.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		57E3D2FE1D3B95E0009E895D /* SafariHistorySearch */ = {
+			isa = PBXGroup;
+			children = (
+				579F177A1D3D71A900FA0F9F /* SafariHistorySearchFramework.xcodeproj */,
+				57E3D2FF1D3B95E0009E895D /* main.m */,
+			);
+			path = SafariHistorySearch;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		579F176E1D3D668900FA0F9F /* SafariHistorySearchBundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 579F17721D3D668900FA0F9F /* Build configuration list for PBXNativeTarget "SafariHistorySearchBundle" */;
+			buildPhases = (
+				579F176B1D3D668900FA0F9F /* Sources */,
+				579F176C1D3D668900FA0F9F /* Frameworks */,
+				579F176D1D3D668900FA0F9F /* Resources */,
+				579F17771D3D691700FA0F9F /* CopyFiles */,
+				579F17791D3D694800FA0F9F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				579F17761D3D690700FA0F9F /* PBXTargetDependency */,
+			);
+			name = SafariHistorySearchBundle;
+			productName = SafariHistorySearchBundle;
+			productReference = 579F176F1D3D668900FA0F9F /* SafariHistorySearch.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		57E3D2FB1D3B95E0009E895D /* SafariHistorySearch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57E3D3031D3B95E0009E895D /* Build configuration list for PBXNativeTarget "SafariHistorySearch" */;
+			buildPhases = (
+				57E3D2F81D3B95E0009E895D /* Sources */,
+				57E3D2F91D3B95E0009E895D /* Frameworks */,
+				57E3D2FA1D3B95E0009E895D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				579F17861D3D77A700FA0F9F /* PBXTargetDependency */,
+			);
+			name = SafariHistorySearch;
+			productName = SafariHistorySearch;
+			productReference = 57E3D2FC1D3B95E0009E895D /* SafariHistorySearch */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		57E3D2F41D3B95E0009E895D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Ahmet Karalar";
+				TargetAttributes = {
+					579F176E1D3D668900FA0F9F = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					57E3D2FB1D3B95E0009E895D = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 57E3D2F71D3B95E0009E895D /* Build configuration list for PBXProject "SafariHistorySearch" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 57E3D2F31D3B95E0009E895D;
+			productRefGroup = 57E3D2FD1D3B95E0009E895D /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 579F177B1D3D71A900FA0F9F /* Products */;
+					ProjectRef = 579F177A1D3D71A900FA0F9F /* SafariHistorySearchFramework.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				57E3D2FB1D3B95E0009E895D /* SafariHistorySearch */,
+				579F176E1D3D668900FA0F9F /* SafariHistorySearchBundle */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		579F17801D3D71A900FA0F9F /* SafariHistorySearchFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SafariHistorySearchFramework.framework;
+			remoteRef = 579F177F1D3D71A900FA0F9F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		579F17821D3D71A900FA0F9F /* SafariHistorySearchFrameworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SafariHistorySearchFrameworkTests.xctest;
+			remoteRef = 579F17811D3D71A900FA0F9F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		579F176D1D3D668900FA0F9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		579F176B1D3D668900FA0F9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57E3D2F81D3B95E0009E895D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57E3D3001D3B95E0009E895D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		579F17761D3D690700FA0F9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57E3D2FB1D3B95E0009E895D /* SafariHistorySearch */;
+			targetProxy = 579F17751D3D690700FA0F9F /* PBXContainerItemProxy */;
+		};
+		579F17861D3D77A700FA0F9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SafariHistorySearchFramework;
+			targetProxy = 579F17851D3D77A700FA0F9F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		579F17731D3D668900FA0F9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = SafariHistorySearchBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = com.akaralar.SafariHistorySearchBundle;
+				PRODUCT_NAME = SafariHistorySearch;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		579F17741D3D668900FA0F9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = SafariHistorySearchBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				PRODUCT_BUNDLE_IDENTIFIER = com.akaralar.SafariHistorySearchBundle;
+				PRODUCT_NAME = SafariHistorySearch;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		57E3D3011D3B95E0009E895D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		57E3D3021D3B95E0009E895D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		57E3D3041D3B95E0009E895D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/$(PRODUCT_NAME).bundle/Contents/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		57E3D3051D3B95E0009E895D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		579F17721D3D668900FA0F9F /* Build configuration list for PBXNativeTarget "SafariHistorySearchBundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				579F17731D3D668900FA0F9F /* Debug */,
+				579F17741D3D668900FA0F9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		57E3D2F71D3B95E0009E895D /* Build configuration list for PBXProject "SafariHistorySearch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57E3D3011D3B95E0009E895D /* Debug */,
+				57E3D3021D3B95E0009E895D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57E3D3031D3B95E0009E895D /* Build configuration list for PBXNativeTarget "SafariHistorySearch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57E3D3041D3B95E0009E895D /* Debug */,
+				57E3D3051D3B95E0009E895D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 57E3D2F41D3B95E0009E895D /* Project object */;
+}
